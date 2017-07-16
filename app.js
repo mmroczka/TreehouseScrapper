@@ -8,6 +8,11 @@ function printMessage(username, badgeCount, points){
 	console.log(message);
 }
 
+// Print error messages
+function printError(e){
+	console.error(e.message);
+}
+
 // Connect to API url ( https://teamtreehouse.com/michaelmroczka2.json )
 function getProfile(username){
 	try {
@@ -21,18 +26,22 @@ function getProfile(username){
 				body +=  data.toString();
 			});
 			// Parse the data
-			response.on('end', () => {
-				// when the packets finally are done transmitting...
-				// console.log(body);
-				// console.log(typeof body);
-				const profile = JSON.parse(body);
-				printMessage(username, profile.badges.length, profile.points.total);
-			});
+			try {
+				response.on('end', () => {
+					// when the packets finally are done transmitting...
+					// console.log(body);
+					// console.log(typeof body);
+					const profile = JSON.parse(body);
+					printMessage(username, profile.badges.length, profile.points.total);
+				});
+			} catch (error){
+				printError(error);
+			}
 			// Print the data
 		});
 		request.on('error', e => console.error(`Problem with request: ${e.message}`));
 	} catch (error) {
-		console.error(error.message);
+		printError(error);
 	}
 }
 
