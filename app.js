@@ -4,7 +4,7 @@ const username = 'michaelmroczka2';
 
 // Function to print message from the console.
 function printMessage(username, badgeCount, points){
-	const message = `${username} has ${badgeCount} total badge(s) and ${points} points in JavaScript`;
+	const message = `${username} has ${badgeCount} total badge(s) and ${points} total points`;
 	console.log(message);
 }
 
